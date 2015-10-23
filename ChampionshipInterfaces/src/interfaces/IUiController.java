@@ -16,10 +16,6 @@ import windowPlugin.MainWindow;
 public interface IUiController {
     public abstract boolean addMenu(String menuName);
     public abstract javax.swing.JMenuItem addMenuItem(String menuName, String itemName);
-    public abstract javax.swing.JButton addToolBar1Item(String iconName);
-    public abstract javax.swing.JButton addToolBar2Item(String iconName);
-    public abstract javax.swing.JButton addToolBar3Item(String iconName);
     public abstract MainWindow getMainWindow();
-    public abstract void switchOptionsBar();
     public abstract void clearPanel();
 }

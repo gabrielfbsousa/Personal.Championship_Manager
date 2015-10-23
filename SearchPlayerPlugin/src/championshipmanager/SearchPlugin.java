@@ -20,7 +20,7 @@ public class SearchPlugin implements IPlugin{
     @Override
     public void initialize(ICore core) {
         IUiController uiController = core.getUiController();
-        
+        /*
         //------------------------------------------Construir Botão Consultar campeonatos anteriores ------------------- ToolBar 1
         javax.swing.JButton newButton = uiController.addToolBar1Item("../ChampionshipManagerResources/src/res/icons/menusearch/searchpreviouschampionships/previous.png");
         if (newButton != null) {
@@ -38,7 +38,7 @@ public class SearchPlugin implements IPlugin{
                 //
             }
         });
-        }
+        }*/
     }
     
 }

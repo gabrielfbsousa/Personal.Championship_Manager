@@ -10,7 +10,9 @@ import groupstageplugin.IGroupsManager;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import tableandmatches.PlayerPerformance;
+import windowPlugin.MainWindow;
 
 /**
  *
@@ -19,14 +21,16 @@ import tableandmatches.PlayerPerformance;
 public class FiveParticipantsManager implements IGroupsManager{
     private int groupID;
     private int championshipID;
+    private MainWindow mainWindow;
     
-    public FiveParticipantsManager(int championshipID){
+    public FiveParticipantsManager(int championshipID, MainWindow mainWindow){
+        this.mainWindow = mainWindow;
         this.championshipID = championshipID;
         this.groupID = 1 + (int) (Math.random()*5000); 
     }
 
     @Override
-    public JPanel getGroupPanel() {
+    public JTabbedPane getGroupPanel() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -11,6 +11,8 @@ import ThreeParticipantsGroup.ThreeParticipantsManager;
 import createplayerplugin.Player;
 import interfaces.IUiController;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.sql.SQLException;
@@ -37,6 +39,15 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
         this.championshipID = 1 + (int) (Math.random() * 5000);
         players = new ArrayList();
         
+        panel.getjPanel1().setVisible(false);
+        panel.getjPanel2().setVisible(false);
+        panel.getjPanel3().setVisible(false);
+        panel.getjPanel4().setVisible(false);
+        panel.getjPanel5().setVisible(false);
+        panel.getjPanel6().setVisible(false);
+        panel.getjPanel7().setVisible(false);
+        panel.getjPanel8().setVisible(false);
+        
         fillBoxWithAllPlayers(panel.getjComboBox15());
         fillBoxWithAllPlayers(panel.getjComboBox16());
         fillBoxWithAllPlayers(panel.getjComboBox17());
@@ -61,6 +72,7 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 jfc.setDialogTitle("Open Document");
                 jfc.setDialogType(JFileChooser.OPEN_DIALOG);
                 if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION) {
+                    panel.getjPanel1().setVisible(true);
                     File documentFile = jfc.getSelectedFile();
                     photoTeamPathOne = documentFile.getAbsolutePath();
                     addIcon(panel.getjPanel1(), photoTeamPathOne);
@@ -79,6 +91,7 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 jfc.setDialogTitle("Open Document");
                 jfc.setDialogType(JFileChooser.OPEN_DIALOG);
                 if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION) {
+                    panel.getjPanel2().setVisible(true);
                     File documentFile = jfc.getSelectedFile();
                     photoTeamPathTwo = documentFile.getAbsolutePath();
                     addIcon(panel.getjPanel2(), photoTeamPathTwo);
@@ -97,6 +110,7 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 jfc.setDialogTitle("Open Document");
                 jfc.setDialogType(JFileChooser.OPEN_DIALOG);
                 if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION) {
+                    panel.getjPanel3().setVisible(true);
                     File documentFile = jfc.getSelectedFile();
                     photoTeamPathThree = documentFile.getAbsolutePath();
                     addIcon(panel.getjPanel3(), photoTeamPathThree);
@@ -115,6 +129,7 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 jfc.setDialogTitle("Open Document");
                 jfc.setDialogType(JFileChooser.OPEN_DIALOG);
                 if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION) {
+                    panel.getjPanel4().setVisible(true);
                     File documentFile = jfc.getSelectedFile();
                     photoTeamPathFour = documentFile.getAbsolutePath();
                     addIcon(panel.getjPanel4(), photoTeamPathFour);
@@ -133,9 +148,11 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 jfc.setDialogTitle("Open Document");
                 jfc.setDialogType(JFileChooser.OPEN_DIALOG);
                 if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION) {
+                    panel.getjPanel5().setVisible(true);
                     File documentFile = jfc.getSelectedFile();
                     photoTeamPathFive = documentFile.getAbsolutePath();
                     addIcon(panel.getjPanel5(), photoTeamPathFive);
+                    uiController.getMainWindow().pack();
                     panel.revalidate();
                     panel.repaint();
                 }
@@ -151,9 +168,11 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 jfc.setDialogTitle("Open Document");
                 jfc.setDialogType(JFileChooser.OPEN_DIALOG);
                 if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION) {
+                    panel.getjPanel6().setVisible(true);
                     File documentFile = jfc.getSelectedFile();
                     photoTeamPathSix = documentFile.getAbsolutePath();
                     addIcon(panel.getjPanel6(), photoTeamPathSix);
+                    uiController.getMainWindow().pack();
                     panel.revalidate();
                     panel.repaint();
                 }
@@ -169,9 +188,11 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 jfc.setDialogTitle("Open Document");
                 jfc.setDialogType(JFileChooser.OPEN_DIALOG);
                 if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION) {
+                    panel.getjPanel7().setVisible(true);
                     File documentFile = jfc.getSelectedFile();
                     photoTeamPathSeven = documentFile.getAbsolutePath();
                     addIcon(panel.getjPanel7(), photoTeamPathSeven);
+                    uiController.getMainWindow().pack();
                     panel.revalidate();
                     panel.repaint();
                 }
@@ -187,9 +208,11 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 jfc.setDialogTitle("Open Document");
                 jfc.setDialogType(JFileChooser.OPEN_DIALOG);
                 if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION) {
+                    panel.getjPanel8().setVisible(true);
                     File documentFile = jfc.getSelectedFile();
                     photoTeamPathEight = documentFile.getAbsolutePath();
                     addIcon(panel.getjPanel8(), photoTeamPathEight);
+                    uiController.getMainWindow().pack();
                     panel.revalidate();
                     panel.repaint();
                 }
@@ -243,10 +266,11 @@ public class PlayoffsOnlyQuarterFinals extends DefaultQuarterFinalsManager{
                 fillBoxWithAllPlayers(panel.getjComboBox7(), playerSeven);
                 fillBoxWithAllPlayers(panel.getjComboBox8(), playerEight);
                 
+                getPanel().getjPanel10().setBackground(new Color(0,0,0,64));
                 uiController.getMainWindow().getjPanel2().add(getPanel().getjPanel10(), BorderLayout.CENTER);
                 uiController.getMainWindow().revalidate();
                 uiController.getMainWindow().repaint();
-                uiController.getMainWindow().setSize(1200, 1000);
+                uiController.getMainWindow().pack();
             }
         });
     }

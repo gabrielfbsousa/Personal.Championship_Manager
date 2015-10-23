@@ -50,16 +50,7 @@ public class Player {
         this.name = name;
     }
     
-    public void selectPhoto(){
-        JFileChooser jfc = new JFileChooser();
-	jfc.setDialogTitle("Open Document");
-	jfc.setDialogType(JFileChooser.OPEN_DIALOG);
-        if (jfc.showDialog(null, "Ok") == JFileChooser.APPROVE_OPTION)
-        {
-            File documentFile = jfc.getSelectedFile();
-            photoPath = documentFile.getAbsolutePath();
-        }
-    }
+    
 
     public void copyPhoto() throws FileNotFoundException {
         //Pegar o caminho de destino da foto
@@ -140,6 +131,11 @@ public class Player {
     public String getPhotoPath() {
         return photoPath;
     }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+    
 
     public int getGoals() {
         return goals;

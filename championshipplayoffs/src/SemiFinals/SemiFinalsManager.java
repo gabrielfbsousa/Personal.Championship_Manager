@@ -5,8 +5,6 @@
  */
 package SemiFinals;
 
-
-
 import championshipmanager.DaoInsert;
 import groupstageplugin.IGroupsManager;
 import ThreeParticipantsGroup.ThreeParticipantsManager;
@@ -17,10 +15,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import tableandmatches.Match;
+import tableandmatches.MatchManager;
 import tableandmatches.PlayerPerformance;
 
 /**
@@ -45,16 +46,20 @@ public class SemiFinalsManager {
     String photoTeamPathTwo;
     String photoTeamPathThree;
     String photoTeamPathFour;
-    
+
     private DaoInsert dao;
 
-    public SemiFinalsManager() { //Pra fase de mata-mata apenas
+    public SemiFinalsManager() { 
         panel = new SemiFinalsManagerPanel();
         panel.setVisible(true);
         dao = new DaoInsert();
+
         createButtonSemiOne();
         createButtonSemiTwo();
         createButtonChampion();
+        configureJCheckBox1();
+        configureJCheckBox2();
+        configureJCheckBox3();
     }
 
     public SemiFinalsManagerPanel getPanel() {
@@ -91,8 +96,13 @@ public class SemiFinalsManager {
                 Match match = new Match(championshipID, leaderOne, secondTwo);
                 match.setHomeScore(Integer.parseInt(panel.getjTextField1().getText()));
                 match.setAwayScore(Integer.parseInt(panel.getjTextField2().getText()));
-                match.setHomePenalties(Integer.parseInt(panel.getjTextField7().getText()));
-                match.setAwayPenalties(Integer.parseInt(panel.getjTextField8().getText()));
+                if (panel.getjCheckBox1().isSelected()) {
+                    match.setHomePenalties(Integer.parseInt(panel.getjTextField7().getText()));
+                    match.setAwayPenalties(Integer.parseInt(panel.getjTextField8().getText()));
+                } else {
+                    match.setHomePenalties(0);
+                    match.setAwayPenalties(0);
+                }
                 match.getResultOfTheMatch();
                 dao.insertMatch(match);
                 if (leaderOne.isEliminated()) {
@@ -120,8 +130,13 @@ public class SemiFinalsManager {
                 Match match = new Match(championshipID, leaderTwo, secondOne);
                 match.setHomeScore(Integer.parseInt(panel.getjTextField3().getText()));
                 match.setAwayScore(Integer.parseInt(panel.getjTextField4().getText()));
-                match.setHomePenalties(Integer.parseInt(panel.getjTextField9().getText()));
-                match.setAwayPenalties(Integer.parseInt(panel.getjTextField10().getText()));
+                if (panel.getjCheckBox2().isSelected()) {
+                    match.setHomePenalties(Integer.parseInt(panel.getjTextField9().getText()));
+                    match.setAwayPenalties(Integer.parseInt(panel.getjTextField10().getText()));
+                } else {
+                    match.setHomePenalties(0);
+                    match.setAwayPenalties(0);
+                }
                 match.getResultOfTheMatch();
                 dao.insertMatch(match);
                 if (leaderTwo.isEliminated()) {
@@ -146,8 +161,13 @@ public class SemiFinalsManager {
                 Match match = new Match(championshipID, finalistOne, finalistTwo);
                 match.setHomeScore(Integer.parseInt(panel.getjTextField5().getText()));
                 match.setAwayScore(Integer.parseInt(panel.getjTextField6().getText()));
-                match.setHomePenalties(Integer.parseInt(panel.getjTextField11().getText()));
-                match.setAwayPenalties(Integer.parseInt(panel.getjTextField12().getText()));
+                if (panel.getjCheckBox3().isSelected()) {
+                    match.setHomePenalties(Integer.parseInt(panel.getjTextField11().getText()));
+                    match.setAwayPenalties(Integer.parseInt(panel.getjTextField12().getText()));
+                } else {
+                    match.setHomePenalties(0);
+                    match.setAwayPenalties(0);
+                }
                 match.getResultOfTheMatch();
                 dao.insertMatch(match);
                 if (finalistOne.isEliminated()) {
@@ -159,6 +179,9 @@ public class SemiFinalsManager {
                     giveRankingPoints(25, finalistOne);
                     panel.getjTextField13().setText(finalistOne.getPlayerName());
                 }
+                
+                JFrame frame = new JFrame(); // Frame pra fazer o relatório do campeonato, com a opção de concluir
+                frame.setVisible(true);
             }
         });
     }
@@ -192,6 +215,65 @@ public class SemiFinalsManager {
         } catch (SQLException ex) {
             Logger.getLogger(SemiFinalsManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    }
+
+    public void configureJCheckBox1() {
+        JCheckBox checkBox = panel.getjCheckBox1();
+        checkBox.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox.isSelected()) {
+                    panel.getjTextField7().setEditable(true);
+                    panel.getjTextField8().setEditable(true);
+                } else {
+                    panel.getjTextField7().setEditable(false);
+                    panel.getjTextField8().setEditable(false);
+                }
+
+            }
+        });
+    }
+
+    public void configureJCheckBox2() {
+        JCheckBox checkBox = panel.getjCheckBox2();
+        checkBox.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox.isSelected()) {
+                    panel.getjTextField9().setEditable(true);
+                    panel.getjTextField10().setEditable(true);
+                } else {
+                    panel.getjTextField9().setEditable(false);
+                    panel.getjTextField10().setEditable(false);
+                }
+
+            }
+        });
+
+    }
+
+    public void configureJCheckBox3() {
+        JCheckBox checkBox = panel.getjCheckBox3();
+        checkBox.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox.isSelected()) {
+                    panel.getjTextField11().setEditable(true);
+                    panel.getjTextField12().setEditable(true);
+                } else {
+                    panel.getjTextField11().setEditable(false);
+                    panel.getjTextField12().setEditable(false);
+                }
+
+            }
+        });
 
     }
 

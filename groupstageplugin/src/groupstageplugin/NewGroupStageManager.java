@@ -41,6 +41,7 @@ public class NewGroupStageManager {
         this.mainWindow = mainWindow;
         pontosPanel = new NewGroupStagePanel();
         pontosPanel.setVisible(true);
+        pontosPanel.getjTabbedPane1().setVisible(false);
         championshipID = 1 + (int) (Math.random()*5000); 
         initialize();
     }
@@ -74,6 +75,7 @@ public class NewGroupStageManager {
     public void createGroupsButton(final javax.swing.JComboBox comboBoxPlayers, final javax.swing.JComboBox comboBoxGroups){
         allGroups = new ArrayList();
         javax.swing.JButton buttonCreateGroups = pontosPanel.getjButton1();
+        pontosPanel.getjTabbedPane1().setVisible(true);
         buttonCreateGroups.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
@@ -99,22 +101,22 @@ public class NewGroupStageManager {
 
                     switch (playersQuantity) {
                         case 3:            
-                            newGroup = new ThreeParticipantsManager(championshipID);
+                            newGroup = new ThreeParticipantsManager(championshipID, mainWindow);
                             JScrollPane scrollThree = new JScrollPane(newGroup.getGroupPanel());
-                            panel.add(scrollThree);
+                            panel.add("Grupo "+ (i+1), scrollThree);
                             allGroups.add(newGroup);
                             break;
 
                         case 4:
-                            newGroup = new FourParticipantsManager(championshipID);
+                            newGroup = new FourParticipantsManager(championshipID, mainWindow);
                             JScrollPane scrollFour = new JScrollPane(newGroup.getGroupPanel());
-                            panel.add(scrollFour);
+                            panel.add("Grupo "+ (i+1), scrollFour);
                             allGroups.add(newGroup);
                             break;
                         case 5:
-                            newGroup = new FiveParticipantsManager(championshipID);
+                            newGroup = new FiveParticipantsManager(championshipID, mainWindow);
                             JScrollPane scrollFive = new JScrollPane(newGroup.getGroupPanel());
-                            panel.add(scrollFive);
+                            panel.add("Grupo "+ (i+1), scrollFive);
                             allGroups.add(newGroup);
                             break;
                     }
@@ -135,8 +137,10 @@ public class NewGroupStageManager {
                         buttonQuarters.setEnabled(false);
                     } 
                 }
+                mainWindow.pack();
             }
         });
+        
     }
     
     public void QuarterFinalButton(){
@@ -148,7 +152,7 @@ public class NewGroupStageManager {
                 GroupstageQuarterFinals quarterFinals = new GroupstageQuarterFinals(championshipID, allGroups);
                 mainWindow.getjPanel2().removeAll();
                 mainWindow.getjPanel2().setLayout(new BorderLayout());
-                mainWindow.getjPanel2().add(quarterFinals.getPanel(), BorderLayout.CENTER);
+                mainWindow.getjPanel2().add(quarterFinals.getPanel().getjPanel10(), BorderLayout.CENTER);
                 mainWindow.revalidate();
                 mainWindow.repaint();
                 mainWindow.setSize(1300, 1000);
@@ -166,7 +170,7 @@ public class NewGroupStageManager {
                 //Se eu não tirar o ponto de terceiro lugar de grupo, ele pode acumular esses 5 caso seja campeão.
                 mainWindow.getjPanel2().removeAll();
                 mainWindow.getjPanel2().setLayout(new BorderLayout());
-                mainWindow.getjPanel2().add(quarter.getPanel(), BorderLayout.CENTER);
+                mainWindow.getjPanel2().add(quarter.getPanel().getjPanel8(), BorderLayout.CENTER);
                 mainWindow.revalidate();
                 mainWindow.repaint();
                 mainWindow.setSize(1400, 1000);
@@ -183,7 +187,7 @@ public class NewGroupStageManager {
                 GroupstageSemiFinals semis = new GroupstageSemiFinals(championshipID, allGroups);
                 mainWindow.getjPanel2().removeAll();
                 mainWindow.getjPanel2().setLayout(new BorderLayout());
-                mainWindow.getjPanel2().add(semis.getPanel(), BorderLayout.CENTER);
+                mainWindow.getjPanel2().add(semis.getPanel().getjPanel6(), BorderLayout.CENTER);
                 mainWindow.revalidate();
                 mainWindow.repaint();
                 mainWindow.setSize(1200, 1000);

@@ -21,8 +21,10 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import tableandmatches.MatchManager;
 import tableandmatches.PlayerPerformance;
+import windowPlugin.MainWindow;
 
 /**
  *
@@ -31,6 +33,7 @@ import tableandmatches.PlayerPerformance;
 public class FourParticipantsManager implements IGroupsManager {
 
     private FourParticipantsPanel groupPanel;
+    private MainWindow mainWindow;
     private ArrayList<PlayerPerformance> participants;
     private int groupID;
     private int championshipID;
@@ -41,7 +44,8 @@ public class FourParticipantsManager implements IGroupsManager {
     private DaoInsert dao;
     private int tourns;
 
-    public FourParticipantsManager(int championshipID) {
+    public FourParticipantsManager(int championshipID, MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
         groupPanel = new FourParticipantsPanel();
         participants = new ArrayList();
         this.tourns = 0;
@@ -65,8 +69,8 @@ public class FourParticipantsManager implements IGroupsManager {
     }
 
     @Override
-    public FourParticipantsPanel getGroupPanel() {
-        return groupPanel;
+    public JTabbedPane getGroupPanel() {
+        return groupPanel.getjTabbedPane1();
     }
 
     @Override
@@ -91,7 +95,8 @@ public class FourParticipantsManager implements IGroupsManager {
         button.addActionListener(new java.awt.event.ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {                
+                
                 String selectedOne = groupPanel.getjComboBox1().getSelectedItem() + "";
                 String selectedTwo = groupPanel.getjComboBox2().getSelectedItem() + "";
                 String selectedThree = groupPanel.getjComboBox3().getSelectedItem() + "";
@@ -103,7 +108,7 @@ public class FourParticipantsManager implements IGroupsManager {
                 participants.add(new PlayerPerformance(selectedFour, championshipID, groupID, photoTeamPathFour));
 
                 fillMatchesWithSpecificPlayers();
-            }
+                            }
         });
     }
 

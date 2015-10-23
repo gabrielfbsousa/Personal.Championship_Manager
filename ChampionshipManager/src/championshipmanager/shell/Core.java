@@ -10,6 +10,7 @@ import interfaces.ICore;
 import interfaces.IPluginController;
 import interfaces.IProjectController;
 import interfaces.IUiController;
+import javax.swing.JScrollPane;
 
 /**
  *

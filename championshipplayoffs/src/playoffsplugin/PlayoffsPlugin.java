@@ -16,8 +16,11 @@ import interfaces.ICore;
 import interfaces.IPlugin;
 import interfaces.IUiController;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -27,60 +30,87 @@ import javax.swing.JTabbedPane;
  * @author GabrielFerreira
  */
 public class PlayoffsPlugin implements IPlugin {
+    
+    private JButton semiFinalButton;
+    private JButton quarterButton;
+    private JButton quarterWithBestButton;
 
     @Override
     public void initialize(ICore core) {
         IUiController uiController = core.getUiController();
 
-        javax.swing.JButton newButton = uiController.addToolBar3Item("../ChampionshipManagerResources/src/res/icons/menuplus/semis/semifinals.png");
-        if (newButton != null) {
-            newButton.addActionListener(new java.awt.event.ActionListener() {
+        semiFinalButton = new JButton();
+        semiFinalButton.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/menuplus/semis/semifinals.png")); // NOI18N
+        semiFinalButton.setFocusable(false);
+        semiFinalButton.setBorderPainted(false);
+
+        if (semiFinalButton != null) {
+            semiFinalButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     PlayoffsOnlySemiFinals semis = new PlayoffsOnlySemiFinals(uiController);
                     uiController.getMainWindow().getjPanel2().removeAll();
                     uiController.getMainWindow().getjPanel2().setLayout(new BorderLayout());
-                    //JScrollPane scroll = new JScrollPane();
-                    //scroll.add(semis.getPanel());
+                    semis.getPanel().getjPanel3().setBackground(new Color(0, 0, 0, 64));
+                    JScrollPane scroll = new JScrollPane();
+
                     uiController.getMainWindow().getjPanel2().add(semis.getPanel().getjPanel3(), BorderLayout.CENTER);
                     uiController.getMainWindow().revalidate();
                     uiController.getMainWindow().repaint();
-                    uiController.getMainWindow().setSize(1200, 1000);
+                    uiController.getMainWindow().pack();
                 }
             });
         }
-
-        newButton = uiController.addToolBar3Item("../ChampionshipManagerResources/src/res/icons/menuplus/quarters/quarters.png");
-        if (newButton != null) {
-            newButton.addActionListener(new java.awt.event.ActionListener() {
+        
+        quarterButton = new JButton();
+        quarterButton.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/menuplus/quarters/quarters.png")); // NOI18N
+        quarterButton.setFocusable(false);
+        quarterButton.setBorderPainted(false);
+        if (quarterButton != null) {
+            quarterButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     PlayoffsOnlyQuarterFinals quarter = new PlayoffsOnlyQuarterFinals(uiController);
                     uiController.getMainWindow().getjPanel2().removeAll();
                     uiController.getMainWindow().getjPanel2().setLayout(new BorderLayout());
-                    //JScrollPane scroll = new JScrollPane(quarter.getPanel());
-                    //uiController.getMainWindow().getjPanel2().add(scroll, BorderLayout.CENTER);
+                    
+                    quarter.getPanel().getjPanel9().setBackground(new Color(0, 0, 0, 64));
                     uiController.getMainWindow().getjPanel2().add(quarter.getPanel().getjPanel9(), BorderLayout.CENTER);
                     uiController.getMainWindow().revalidate();
                     uiController.getMainWindow().repaint();
-                    uiController.getMainWindow().setSize(1300, 1000);
+                    uiController.getMainWindow().pack();
                 }
             });
         }
-
-        newButton = uiController.addToolBar3Item("../ChampionshipManagerResources/src/res/icons/menuplus/quarterswithbests/quarterswithbests.png");
-        if (newButton != null) {
-            newButton.addActionListener(new java.awt.event.ActionListener() {
+        
+        quarterWithBestButton = new JButton();
+        quarterWithBestButton.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/menuplus/quarterswithbests/quarterswithbests.png")); // NOI18N
+        quarterWithBestButton.setFocusable(false);
+        quarterWithBestButton.setBorderPainted(false);
+        if (quarterWithBestButton != null) {
+            quarterWithBestButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     PlayoffsOnlyQuarterFinalsWithSecondsBest quarterWithBest = new PlayoffsOnlyQuarterFinalsWithSecondsBest(uiController);
                     uiController.getMainWindow().getjPanel2().removeAll();
                     uiController.getMainWindow().getjPanel2().setLayout(new BorderLayout());
-                    //JScrollPane scroll = new JScrollPane(quarterWithBest.getPanel());
-                    //uiController.getMainWindow().getjPanel2().add(scroll, BorderLayout.CENTER);
+                    
+                    quarterWithBest.getPanel().getjPanel7().setBackground(new Color(0, 0, 0, 64));
                     uiController.getMainWindow().getjPanel2().add(quarterWithBest.getPanel().getjPanel7(), BorderLayout.CENTER);
                     uiController.getMainWindow().revalidate();
                     uiController.getMainWindow().repaint();
-                    uiController.getMainWindow().setSize(1400, 1000);
+                    uiController.getMainWindow().pack();
                 }
             });
         }
+    }
+    
+    public JButton getSemiFinalsButton(){
+        return semiFinalButton;
+    }
+    
+    public JButton getQuarterButton(){
+        return quarterButton;
+    }
+    
+    public JButton getQuarterWithBestButton(){
+        return quarterWithBestButton;
     }
 }

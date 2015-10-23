@@ -5,9 +5,6 @@
  */
 package ThreeParticipantsGroup;
 
-
-
-
 import FourParticipantsGroup.FourParticipantsManager;
 import championshipmanager.DaoInsert;
 import createplayerplugin.Player;
@@ -27,8 +24,10 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import tableandmatches.MatchManager;
 import tableandmatches.PlayerPerformance;
+import windowPlugin.MainWindow;
 
 /**
  *
@@ -37,6 +36,7 @@ import tableandmatches.PlayerPerformance;
 public class ThreeParticipantsManager implements IGroupsManager {
 
     private ThreeParticipantsPanel groupPanel;
+    private MainWindow mainWindow;
     private ArrayList<PlayerPerformance> participants;
     private int groupID;
     private int championshipID;
@@ -46,29 +46,32 @@ public class ThreeParticipantsManager implements IGroupsManager {
     private DaoInsert dao;
     private int tourns;
 
-    public ThreeParticipantsManager(int championshipID) {
+    public ThreeParticipantsManager(int championshipID, MainWindow mainWindow) {
         groupPanel = new ThreeParticipantsPanel();
         participants = new ArrayList();
+        this.mainWindow = mainWindow;
         this.tourns = 0;
         this.championshipID = championshipID;
         dao = new DaoInsert();
-        this.groupID = 1 + (int) (Math.random()*5000); 
-        
+        this.groupID = 1 + (int) (Math.random() * 5000);
+
         try {
             dao.createGroup(groupID, 3);
-       } catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(FourParticipantsManager.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        }
+
         fillBoxWithAllPlayers(groupPanel.getjComboBox1());
         fillBoxWithAllPlayers(groupPanel.getjComboBox2());
         fillBoxWithAllPlayers(groupPanel.getjComboBox3());
+
         configureSelectPhotoButtons();
         configureConfirmationButton();
         configureCreateTable();
     }
 
-    public ThreeParticipantsPanel getGroupPanel() {
-        return groupPanel;
+    public JTabbedPane getGroupPanel() {
+        return groupPanel.getjTabbedPane1();
     }
 
     public void fillBoxWithAllPlayers(JComboBox comboBox) {
@@ -91,6 +94,7 @@ public class ThreeParticipantsManager implements IGroupsManager {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String selectedOne = groupPanel.getjComboBox1().getSelectedItem() + "";
                 String selectedTwo = groupPanel.getjComboBox2().getSelectedItem() + "";
                 String selectedThree = groupPanel.getjComboBox3().getSelectedItem() + "";
@@ -134,7 +138,7 @@ public class ThreeParticipantsManager implements IGroupsManager {
                 //Termina fase de grupos. Aqui, a ideia é calcular partida por partida, mandar elas pro banco, 
                 //criar uma tabela temporária, e por fim, gerar a tabela final, que será mandada ao banco
                 tourns++;
-                if(groupPanel.getjCheckBox1().isSelected()){ // Tem mais um turno
+                if (groupPanel.getjCheckBox1().isSelected()) { // Tem mais um turno
                     MatchManager create = new MatchManager(groupPanel, participants, championshipID, groupID, tourns, true);
                     groupPanel.getjTextField1().setText("");
                     groupPanel.getjTextField2().setText("");
@@ -169,10 +173,10 @@ public class ThreeParticipantsManager implements IGroupsManager {
                     addIcon(groupPanel.getjPanel1(), photoTeamPathOne);
                     groupPanel.revalidate();
                     groupPanel.repaint();
-                }   
+                }
             }
         });
-        
+
         javax.swing.JButton button2 = groupPanel.getjButton2();
         button2.addActionListener(new java.awt.event.ActionListener() {
 
@@ -187,10 +191,10 @@ public class ThreeParticipantsManager implements IGroupsManager {
                     addIcon(groupPanel.getjPanel2(), photoTeamPathTwo);
                     groupPanel.revalidate();
                     groupPanel.repaint();
-                }   
+                }
             }
         });
-        
+
         javax.swing.JButton button3 = groupPanel.getjButton3();
         button3.addActionListener(new java.awt.event.ActionListener() {
 
@@ -205,12 +209,12 @@ public class ThreeParticipantsManager implements IGroupsManager {
                     addIcon(groupPanel.getjPanel3(), photoTeamPathThree);
                     groupPanel.revalidate();
                     groupPanel.repaint();
-                }   
+                }
             }
         });
     }
-    
-    public void addIcon(JPanel panel, String address){
+
+    public void addIcon(JPanel panel, String address) {
         javax.swing.ImageIcon img = new javax.swing.ImageIcon(address);
 
         int largura = img.getIconWidth();
@@ -223,5 +227,5 @@ public class ThreeParticipantsManager implements IGroupsManager {
         panel.revalidate();
         panel.repaint();
     }
-    
+
 }

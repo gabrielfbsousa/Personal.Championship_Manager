@@ -9,6 +9,7 @@ import championshipmanager.DaoInsert;
 import groupstageplugin.IGroupsManager;
 import ThreeParticipantsGroup.ThreeParticipantsManager;
 import createplayerplugin.Player;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.sql.SQLException;
@@ -31,6 +32,7 @@ public class GroupstageSemiFinals extends SemiFinalsManager {
         super();
         hadPreviousPhase = true;
         this.championshipID = championshipID;
+        getPanel().getjPanel6().setBackground(new Color(0, 0, 0, 64));
 
         fillBoxWithAllPlayers(panel.getjComboBox1(), groups.get(0).getPlayersPerformance().get(0));
         fillBoxWithAllPlayers(panel.getjComboBox2(), groups.get(1).getPlayersPerformance().get(1));

@@ -6,13 +6,21 @@
 package championshipmanager.shell;
 
 import championshipmanager.SearchPlugin;
+import createplayerplugin.NewPlayerManager;
+import createplayerplugin.NewPlayerPanel;
 import createplayerplugin.PlayerPlugin;
 import windowPlugin.MainWindow;
 import interfaces.ICore;
 import interfaces.IProjectController;
 import interfaces.IUiController;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import playoffsplugin.PlayoffsPlugin;
 import plugin.GroupstagePlugin;
 
@@ -27,18 +35,17 @@ public class ProjectController implements IProjectController {
     public void initialize(final ICore core) {
         final IUiController uiController = core.getUiController();
         final MainWindow mainWindow = (MainWindow) uiController.getMainWindow();
-        uiController.switchOptionsBar();
 
-        //------------------------------------------Construir Botão Home ------------------- ToolBar 2
-        javax.swing.JButton newButton = uiController.addToolBar2Item("../ChampionshipManagerResources/src/res/icons/primaries/home.png");
+        //------------------------------------------Construir Botão Home -------------------
+        javax.swing.JButton newButton = uiController.getMainWindow().getjButton1();
+        newButton.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/primaries/home.png")); // NOI18N
+        newButton.setFocusable(false);
+        newButton.setBorderPainted(false);
+
         if (newButton != null) {
             newButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     mainWindow.getjPanel2().removeAll();
-                    javax.swing.JToolBar topToolBar = mainWindow.getJToolBar1();
-                    if (topToolBar.isEnabled()) {
-                        core.getUiController().switchOptionsBar();
-                    }
                     mainWindow.revalidate();
                     mainWindow.repaint();
                 }
@@ -47,64 +54,74 @@ public class ProjectController implements IProjectController {
             );
         }
 
-        //------------------------------------------Construir Botão Player ------------------- ToolBar 2
-        newButton = uiController.addToolBar2Item("../ChampionshipManagerResources/src/res/icons/primaries/player18.png");
+        //------------------------------------------Construir Botão Player -------------------
+        newButton = uiController.getMainWindow().getjButton2();
+        newButton.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/primaries/player18.png")); // NOI18N
+        newButton.setFocusable(false);
+        newButton.setBorderPainted(false);
         if (newButton != null) {
             newButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    mainWindow.getjPanel2().removeAll();
+                    uiController.getMainWindow().getjPanel2().removeAll();
+                    uiController.getMainWindow().getjPanel2().setLayout(new BorderLayout());
 
                     PlayerPlugin plugin = new PlayerPlugin();
                     plugin.initialize(core);
-                    core.getUiController().switchOptionsBar();
+
+                    mainWindow.pack();
+                    mainWindow.revalidate();
+                    mainWindow.repaint();
 
                 }
             });
         }
 
-        //------------------------------------------Construir Botão Search ------------------- ToolBar 2
-        newButton = uiController.addToolBar2Item("../ChampionshipManagerResources/src/res/icons/primaries/search.png");
+        //------------------------------------------Construir Botão Search -------------------
+        newButton = uiController.getMainWindow().getjButton3();
+        newButton.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/primaries/search.png")); // NOI18N
+        newButton.setFocusable(false);
+        newButton.setBorderPainted(false);
         if (newButton != null) {
             newButton.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     SearchPlugin plugin = new SearchPlugin();
                     plugin.initialize(core);
-                    core.getUiController().switchOptionsBar();
                 }
             });
         }
 
-        //------------------------------------------Construir Botão + ------------------- 
-        final javax.swing.JButton newButtonPlus = mainWindow.getjButton9();
-        newButtonPlus.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/primaries/circleblue24.png")); // NOI18N
+        //------------------------------------------Construir Botão Torneios ------------------- 
+        final javax.swing.JButton newButtonPlus = mainWindow.getjButton4();
+        newButtonPlus.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/primaries/tournment.png")); // NOI18N
         newButtonPlus.setFocusable(false);
         newButtonPlus.setBorderPainted(false);
-        newButtonPlus.setOpaque(true);
-        final Indicator indicator = new Indicator();
         if (newButtonPlus != null) {
             newButtonPlus.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    if (!indicator.isIndicator()) {
-                        uiController.getMainWindow().getJToolBar3().setVisible(true);
+                    uiController.getMainWindow().getjPanel2().removeAll();
+                    uiController.getMainWindow().getjPanel2().setLayout(new BorderLayout());
+                    
+                    JPanel panel = new JPanel();
+                    GridLayout layout = new GridLayout(0, 2);
+                    panel.setLayout(layout);
+                    panel.setBackground(new Color(0, 0, 0, 64));
+                    
 
-                        GroupstagePlugin groupstagePlugin = new GroupstagePlugin();
-                        groupstagePlugin.initialize(core);
+                    GroupstagePlugin groupstagePlugin = new GroupstagePlugin();
+                    groupstagePlugin.initialize(core);
+                    panel.add(groupstagePlugin.getButton());
 
-                        PlayoffsPlugin playoffsPlugin = new PlayoffsPlugin();
-                        playoffsPlugin.initialize(core);
+                    PlayoffsPlugin playoffsPlugin = new PlayoffsPlugin();
+                    playoffsPlugin.initialize(core);
+                    panel.add(playoffsPlugin.getQuarterButton());
+                    panel.add(playoffsPlugin.getQuarterWithBestButton());
+                    panel.add(playoffsPlugin.getSemiFinalsButton());
 
-                        indicator.change();
-                        newButtonPlus.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/primaries/circleblue24minus.png")); // NOI18N
-                        mainWindow.revalidate();
-                        mainWindow.repaint();
-                    } else {
-                        uiController.getMainWindow().getJToolBar3().removeAll();
-                        uiController.getMainWindow().getJToolBar3().setVisible(false);
-                        indicator.change();
-                        newButtonPlus.setIcon(new javax.swing.ImageIcon("../ChampionshipManagerResources/src/res/icons/primaries/circleblue24.png")); // NOI18N
-                        mainWindow.revalidate();
-                        mainWindow.repaint();
-                    }
+                    uiController.getMainWindow().getjPanel2().add(panel, BorderLayout.CENTER);
+                    mainWindow.pack();
+                    mainWindow.revalidate();
+                    mainWindow.repaint();
+
                 }
             });
         }

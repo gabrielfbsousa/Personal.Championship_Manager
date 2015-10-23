@@ -8,6 +8,7 @@ package groupstageplugin;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import tableandmatches.PlayerPerformance;
 
 /**
@@ -16,7 +17,7 @@ import tableandmatches.PlayerPerformance;
  */
 public interface IGroupsManager {
 
-    public abstract JPanel getGroupPanel();
+    public abstract JTabbedPane getGroupPanel();
 
     public abstract void fillBoxWithAllPlayers(JComboBox comboBox);
 

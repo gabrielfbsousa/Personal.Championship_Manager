@@ -10,13 +10,16 @@ import championshipmanager.DaoInsert;
 import groupstageplugin.IGroupsManager;
 import ThreeParticipantsGroup.ThreeParticipantsManager;
 import createplayerplugin.Player;
+import java.awt.BorderLayout;
 
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import tableandmatches.Match;
 import tableandmatches.PlayerPerformance;
@@ -54,6 +57,7 @@ public class DefaultQuarterFinalsManager {
         panel = new DefaultQuarterFinalsPanel();
         panel.setVisible(true);
 
+        configureAllCheckBoxes();
         createButtonQuarterOne();
         createButtonQuarterTwo();
         createButtonSemiTwo();
@@ -96,8 +100,13 @@ public class DefaultQuarterFinalsManager {
                 Match matchA = new Match(championshipID, homeMatchA, awayMatchA);
                 matchA.setHomeScore(Integer.parseInt(panel.getjTextField1().getText()));
                 matchA.setAwayScore(Integer.parseInt(panel.getjTextField2().getText()));
-                matchA.setHomePenalties(Integer.parseInt(panel.getjTextField15().getText()));
-                matchA.setAwayPenalties(Integer.parseInt(panel.getjTextField16().getText()));
+                if (panel.getjCheckBox1().isSelected()) {
+                    matchA.setHomePenalties(Integer.parseInt(panel.getjTextField15().getText()));
+                    matchA.setAwayPenalties(Integer.parseInt(panel.getjTextField16().getText()));
+                } else {
+                    matchA.setHomePenalties(0);
+                    matchA.setAwayPenalties(0);
+                }
                 matchA.getResultOfTheMatch();
                 dao.insertMatch(matchA);
                 if (homeMatchA.isEliminated()) {
@@ -117,8 +126,13 @@ public class DefaultQuarterFinalsManager {
                 Match matchB = new Match(championshipID, homeMatchB, awayMatchB);
                 matchB.setHomeScore(Integer.parseInt(panel.getjTextField3().getText()));
                 matchB.setAwayScore(Integer.parseInt(panel.getjTextField4().getText()));
-                matchB.setHomePenalties(Integer.parseInt(panel.getjTextField17().getText()));
-                matchB.setAwayPenalties(Integer.parseInt(panel.getjTextField18().getText()));
+                if (panel.getjCheckBox2().isSelected()) {
+                    matchB.setHomePenalties(Integer.parseInt(panel.getjTextField17().getText()));
+                    matchB.setAwayPenalties(Integer.parseInt(panel.getjTextField18().getText()));
+                } else {
+                    matchB.setHomePenalties(0);
+                    matchB.setAwayPenalties(0);
+                }
                 matchB.getResultOfTheMatch();
                 dao.insertMatch(matchB);
                 if (homeMatchB.isEliminated()) {
@@ -147,8 +161,13 @@ public class DefaultQuarterFinalsManager {
                 Match matchC = new Match(championshipID, homeMatchC, awayMatchC);
                 matchC.setHomeScore(Integer.parseInt(panel.getjTextField5().getText()));
                 matchC.setAwayScore(Integer.parseInt(panel.getjTextField6().getText()));
-                matchC.setHomePenalties(Integer.parseInt(panel.getjTextField19().getText()));
-                matchC.setAwayPenalties(Integer.parseInt(panel.getjTextField20().getText()));
+                if (panel.getjCheckBox3().isSelected()) {
+                    matchC.setHomePenalties(Integer.parseInt(panel.getjTextField19().getText()));
+                    matchC.setAwayPenalties(Integer.parseInt(panel.getjTextField20().getText()));
+                } else {
+                    matchC.setHomePenalties(0);
+                    matchC.setAwayPenalties(0);
+                }
                 matchC.getResultOfTheMatch();
                 dao.insertMatch(matchC);
                 if (homeMatchC.isEliminated()) {
@@ -168,8 +187,14 @@ public class DefaultQuarterFinalsManager {
                 Match matchD = new Match(championshipID, homeMatchD, awayMatchD);
                 matchD.setHomeScore(Integer.parseInt(panel.getjTextField7().getText()));
                 matchD.setAwayScore(Integer.parseInt(panel.getjTextField8().getText()));
-                matchD.setHomePenalties(Integer.parseInt(panel.getjTextField21().getText()));
-                matchD.setAwayPenalties(Integer.parseInt(panel.getjTextField22().getText()));
+                if (panel.getjCheckBox4().isSelected()) {
+                    matchD.setHomePenalties(Integer.parseInt(panel.getjTextField21().getText()));
+                    matchD.setAwayPenalties(Integer.parseInt(panel.getjTextField22().getText()));
+                } else {
+                    matchD.setHomePenalties(0);
+                    matchD.setAwayPenalties(0);
+                }
+
                 matchD.getResultOfTheMatch();
                 dao.insertMatch(matchD);
                 if (homeMatchD.isEliminated()) {
@@ -194,8 +219,14 @@ public class DefaultQuarterFinalsManager {
                 Match match = new Match(championshipID, winnerA, winnerB);
                 match.setHomeScore(Integer.parseInt(panel.getjTextField9().getText()));
                 match.setAwayScore(Integer.parseInt(panel.getjTextField10().getText()));
-                match.setHomePenalties(Integer.parseInt(panel.getjTextField23().getText()));
-                match.setAwayPenalties(Integer.parseInt(panel.getjTextField24().getText()));
+                if (panel.getjCheckBox5().isSelected()) {
+                    match.setHomePenalties(Integer.parseInt(panel.getjTextField23().getText()));
+                    match.setAwayPenalties(Integer.parseInt(panel.getjTextField24().getText()));
+                } else {
+                    match.setHomePenalties(0);
+                    match.setAwayPenalties(0);
+                }
+
                 match.getResultOfTheMatch();
                 dao.insertMatch(match);
                 if (winnerA.isEliminated()) {
@@ -220,8 +251,13 @@ public class DefaultQuarterFinalsManager {
                 Match match = new Match(championshipID, winnerC, winnerD);
                 match.setHomeScore(Integer.parseInt(panel.getjTextField11().getText()));
                 match.setAwayScore(Integer.parseInt(panel.getjTextField12().getText()));
-                match.setHomePenalties(Integer.parseInt(panel.getjTextField25().getText()));
-                match.setAwayPenalties(Integer.parseInt(panel.getjTextField26().getText()));
+                if (panel.getjCheckBox6().isSelected()) {
+                    match.setHomePenalties(Integer.parseInt(panel.getjTextField25().getText()));
+                    match.setAwayPenalties(Integer.parseInt(panel.getjTextField26().getText()));
+                } else {
+                    match.setHomePenalties(0);
+                    match.setAwayPenalties(0);
+                }
                 match.getResultOfTheMatch();
                 dao.insertMatch(match);
                 if (winnerC.isEliminated()) {
@@ -246,8 +282,13 @@ public class DefaultQuarterFinalsManager {
                 Match match = new Match(championshipID, finalistOne, finalistTwo);
                 match.setHomeScore(Integer.parseInt(panel.getjTextField13().getText()));
                 match.setAwayScore(Integer.parseInt(panel.getjTextField14().getText()));
-                match.setHomePenalties(Integer.parseInt(panel.getjTextField27().getText()));
-                match.setAwayPenalties(Integer.parseInt(panel.getjTextField28().getText()));
+                if (panel.getjCheckBox7().isSelected()) {
+                    match.setHomePenalties(Integer.parseInt(panel.getjTextField27().getText()));
+                    match.setAwayPenalties(Integer.parseInt(panel.getjTextField28().getText()));
+                } else {
+                    match.setHomePenalties(0);
+                    match.setAwayPenalties(0);
+                }
                 match.getResultOfTheMatch();
                 dao.insertMatch(match);
                 if (finalistOne.isEliminated()) {
@@ -259,6 +300,9 @@ public class DefaultQuarterFinalsManager {
                     giveRankingPoints(25, finalistOne);
                     panel.getjTextField29().setText(finalistOne.getPlayerName());
                 }
+                
+                JFrame frame = new JFrame(); // Frame pra fazer o relatório do campeonato, com a opção de concluir
+                frame.setVisible(true);
             }
         });
     }
@@ -294,8 +338,8 @@ public class DefaultQuarterFinalsManager {
         }
 
     }
-    
-      public void addIcon(JPanel panel, String address) {
+
+    public void addIcon(JPanel panel, String address) {
         javax.swing.ImageIcon img = new javax.swing.ImageIcon(address);
 
         int largura = img.getIconWidth();
@@ -307,5 +351,126 @@ public class DefaultQuarterFinalsManager {
         panel.add(labelimg);
         panel.revalidate();
         panel.repaint();
+    }
+
+    public void configureAllCheckBoxes() {
+        JCheckBox checkBox = panel.getjCheckBox1();
+        checkBox.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox.isSelected()) {
+                    panel.getjTextField15().setEditable(true);
+                    panel.getjTextField16().setEditable(true);
+                } else {
+                    panel.getjTextField15().setEditable(false);
+                    panel.getjTextField16().setEditable(false);
+                }
+
+            }
+        });
+
+        JCheckBox checkBox2 = panel.getjCheckBox2();
+        checkBox2.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox2.isSelected()) {
+                    panel.getjTextField17().setEditable(true);
+                    panel.getjTextField18().setEditable(true);
+                } else {
+                    panel.getjTextField17().setEditable(false);
+                    panel.getjTextField18().setEditable(false);
+                }
+
+            }
+        });
+
+        JCheckBox checkBox3 = panel.getjCheckBox3();
+        checkBox3.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox3.isSelected()) {
+                    panel.getjTextField19().setEditable(true);
+                    panel.getjTextField20().setEditable(true);
+                } else {
+                    panel.getjTextField19().setEditable(false);
+                    panel.getjTextField20().setEditable(false);
+                }
+
+            }
+        });
+
+        JCheckBox checkBox4 = panel.getjCheckBox4();
+        checkBox4.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox4.isSelected()) {
+                    panel.getjTextField21().setEditable(true);
+                    panel.getjTextField22().setEditable(true);
+                } else {
+                    panel.getjTextField21().setEditable(false);
+                    panel.getjTextField22().setEditable(false);
+                }
+
+            }
+        });
+
+        JCheckBox checkBox5 = panel.getjCheckBox5();
+        checkBox5.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox5.isSelected()) {
+                    panel.getjTextField23().setEditable(true);
+                    panel.getjTextField24().setEditable(true);
+                } else {
+                    panel.getjTextField23().setEditable(false);
+                    panel.getjTextField24().setEditable(false);
+                }
+
+            }
+        });
+
+        JCheckBox checkBox6 = panel.getjCheckBox6();
+        checkBox6.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox6.isSelected()) {
+                    panel.getjTextField25().setEditable(true);
+                    panel.getjTextField26().setEditable(true);
+                } else {
+                    panel.getjTextField25().setEditable(false);
+                    panel.getjTextField26().setEditable(false);
+                }
+
+            }
+        });
+
+        JCheckBox checkBox7 = panel.getjCheckBox7();
+        checkBox7.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (checkBox7.isSelected()) {
+                    panel.getjTextField27().setEditable(true);
+                    panel.getjTextField28().setEditable(true);
+                } else {
+                    panel.getjTextField27().setEditable(false);
+                    panel.getjTextField28().setEditable(false);
+                }
+
+            }
+        });
     }
 }
